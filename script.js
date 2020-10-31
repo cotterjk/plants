@@ -100,7 +100,7 @@ function main_draw() {
     clear_draw();
     frame_svg.selectAll("mylayers").remove();
     width = d3.select('#my_dataviz').node().offsetWidth - margin.left - margin.right;
-    console.log(width);
+    // console.log(width);
     frame_svg.attr("width", width + margin.left + margin.right);
     // Parse the Data
     d3.csv("dailyObs2019_bySpecies_Top25_withWeek.csv", function(data) {
@@ -184,10 +184,28 @@ function clear_draw() {
     frame_svg.selectAll("g").remove(); //removes ticks
     svg_legend.selectAll("text").remove(); //removes legend
 
-    console.log("Removing")
+    // // console.log("Removing")
 }
 
 // —————————— END DATA BINDING DRAWING FUNCTION
-window.addEventListener('resize', main_draw);
+
+var timeout;
+window.addEventListener('resize', function (event) {
+
+	// console.log('no debounce');
+
+	// If there's a timer, cancel it
+	if (timeout) {
+		window.cancelAnimationFrame(timeout);
+	}
+
+	// Setup the new requestAnimationFrame()
+	timeout = window.requestAnimationFrame(function () {
+
+		main_draw();
+		// console.log('debounced');
+
+	});
+
+}, false);
 main_draw();
-console.log("Page loaded")
