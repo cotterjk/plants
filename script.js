@@ -199,13 +199,15 @@ window.addEventListener('resize', function (event) {
 		window.cancelAnimationFrame(timeout);
 	}
 
+    setTimeout(function() {
 	// Setup the new requestAnimationFrame()
 	timeout = window.requestAnimationFrame(function () {
 
 		main_draw();
 		// console.log('debounced');
 
-	});
+	   });
+   }, 100)
 
 }, false);
 main_draw();
