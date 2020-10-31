@@ -1,0 +1,1433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>plants</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>-2899371777842150009</string>
+			<key>name</key>
+			<string>127.0.0.1</string>
+			<key>port</key>
+			<integer>8889</integer>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPTCPIPConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8</string>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGJCVYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoKgHCBMUFRYaIVUkbnVsbNMJCgsMDxJX
+			TlMua2V5c1pOUy5vYmplY3RzViRjbGFzc6INDoACgAOiEBGABIAF
+			gAdUdHlwZVRyb3dzXxAdU2VsZWN0aW9uRGV0YWlsVHlwZU5TSW5k
+			ZXhTZXTSFwsYGVxOU1JhbmdlQ291bnQQAIAG0hscHR5aJGNsYXNz
+			bmFtZVgkY2xhc3Nlc1pOU0luZGV4U2V0oh8gWk5TSW5kZXhTZXRY
+			TlNPYmplY3TSGxwiI1xOU0RpY3Rpb25hcnmiIiBfEA9OU0tleWVk
+			QXJjaGl2ZXLRJidUZGF0YYABAAgAEQAaACMALQAyADcAQABGAE0A
+			VQBgAGcAagBsAG4AcQBzAHUAdwB8AIEAoQCmALMAtQC3ALwAxwDQ
+			ANsA3gDpAPIA9wEEAQcBGQEcASEAAAAAAAACAQAAAAAAAAAoAAAA
+			AAAAAAAAAAAAAAABIw==
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {694, 450}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+ORDER BY oo_week; */
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25` 
+ORDER BY oo_week; */
+
+SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+
+</string>
+			<key>table</key>
+			<string>mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>428</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-2019-ConfirmedSpecies-Top25-withWeek`;
+SET @sql = CONCAT('SELECT count(common_name), ', @sql, '
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt</string>
+		<string>SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-2019-ConfirmedSpecies-Top25-withWeek`;
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql</string>
+		<string>/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-2019-ConfirmedSpecies-Top25-withWeek`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+ORDER BY oo_week; */
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25` 
+ORDER BY oo_week; */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+SELECT * FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-2019-ConfirmedSpecies-Top25-withWeek`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+ORDER BY oo_week; */
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25` 
+ORDER BY oo_week; */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+SELECT *
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-2019-ConfirmedSpecies-Top25-withWeek`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */</string>
+		<string>SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-2019-ConfirmedSpecies-Top25-withWeek` 
+ORDER BY oo_week;
+SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-2019-ConfirmedSpecies-Top25-withWeek`;
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql</string>
+		<string>SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-2019-ConfirmedSpecies-Top25-withWeek`;
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-2019-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+ORDER BY oo_week; */
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25` 
+ORDER BY oo_week; */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+SELECT * FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`
+WHERE YEAR(observed_on) = 2019</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+ORDER BY oo_week; */
+
+/* SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25` 
+ORDER BY oo_week; */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+SELECT * FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`</string>
+		<string>SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`;
+SET @sql = CONCAT('SELECT count(common_name), oo_week, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-withWeek`
+                   GROUP BY oo_week');
+PREPARE stmt FROM @sql;
+EXECUTE stmt</string>
+		<string>SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25` 
+ORDER BY oo_week</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* SELECT SUM(American_pokeweed), CAST(observed_on AS DATE) as observed_on_date
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` */
+
+SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+ORDER BY oo_week</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* SELECT SUM(American_pokeweed), CAST(observed_on AS DATE) as observed_on_date
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` */
+
+SELECT *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+GROUP BY oo_week</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* SELECT SUM(American_pokeweed), CAST(observed_on AS DATE) as observed_on_date
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` */
+
+SELECT  *, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+GROUP BY oo_week</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* SELECT SUM(American_pokeweed), CAST(observed_on AS DATE) as observed_on_date
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` */
+
+SELECT  SUM(*), WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+GROUP BY oo_week</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* SELECT SUM(American_pokeweed), CAST(observed_on AS DATE) as observed_on_date
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` */
+
+SELECT  SUM(American_pokeweed) AS total_ap, WEEK(CAST(observed_on AS DATE)) AS oo_week
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED` 
+GROUP BY oo_week</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+SELECT SUM(American_pokeweed), CAST(observed_on AS DATE) as observed_on_date
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED`
+GROUP BY YEAR(observed_on_date), WEEKOFYEAR(observed_on_date)</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+SELECT SUM(American_pokeweek), CAST(observed_on AS DATE) as observed_on_date
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED`
+GROUP BY YEAR(observed_on_date), WEEKOFYEAR(observed_on_date)</string>
+		<string>/* select common_name, count(common_name)
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 1
+order by 2 desc */
+
+/* select common_name, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+order by 2 desc */
+
+/* select common_name, observed_on */
+
+/* select REPLACE(common_name,"'","") as common_name, count(common_name) as num_observed, observed_on
+from `mi-jan2019-sep2020`
+where TRIM(common_name) != ""
+and scientific_name LIKE '% %'
+group by 3, 1
+order by common_name */
+
+/* -- /* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-SHORTER`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-SHORTER`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+/* select common_name, count(common_name)
+from `mi-jan2019-sep2020-ConfirmedSpecies`
+group by 1
+order by 2 desc
+limit 50 */
+
+/* SELECT * 
+FROM `mi-jan2019-sep2020-ConfirmedSpecies` as t1
+INNER JOIN (
+	select common_name
+	from `mi-jan2019-sep2020-ConfirmedSpecies`
+	group by 1
+	order by count(common_name) desc
+	limit 25
+) as t2
+ON t1.common_name = t2.common_name */
+
+/* SET SESSION group_concat_max_len = 400000;
+SELECT 
+  GROUP_CONCAT(DISTINCT
+    CONCAT(
+      "sum(case when common_name = """,
+      common_name,
+      """ then 1 else 0 end) ",
+      REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(common_name, "'","_")," ","_"),"-","_"),".",""),"(",""),")",""),"&amp;","and"),"/","_"),",","_")
+    )
+  ) INTO @sql
+	FROM
+  `mi-jan2019-sep2020-ConfirmedSpecies-Top25`;
+  
+SET @sql = CONCAT('SELECT count(common_name), observed_on, ', @sql, '
+                   FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25`
+                   GROUP BY observed_on');
+PREPARE stmt FROM @sql;
+EXECUTE stmt; */
+
+SELECT American_pokeweed, CAST(observed_on AS DATE) as observed_on_date
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED`
+GROUP BY YEAR(observed_on_date), WEEKOFYEAR(observed_on_date)</string>
+		<string>SELECT *, CAST(observed_on AS DATE) as observed_on_date
+FROM `mi-jan2019-sep2020-ConfirmedSpecies-Top25-PIVOTED`</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.7.26</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

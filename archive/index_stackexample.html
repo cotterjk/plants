@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>iNaturalist data</title>
+    </head>
+    <body>
+        <script src="https://d3js.org/d3.v4.js"></script>
+
+        <p>hello world</p>
+
+        <script type="text/javascript">
+
+        d3.csv("numOfEachSpecies_eachDay.csv", function(error, dataset){
+            const stack = d3.stack().keys(["common_name","num_observed"]);
+            // console.log(dataset);
+
+            const stackedValues = stack(dataset);
+            const stackedData = [];
+            // Copy the stack offsets back into the data.
+            stackedValues.forEach((layer, index) => {
+              const currentStack = [];
+              layer.forEach((d, i) => {
+                currentStack.push({
+                  values: d,
+                  observed_on: dataset[i].observed_on
+                });
+              });
+              stackedData.push(currentStack);
+            });
+            console.table(stackedData);
+        });
+
+
+
+        </script>
+    </body>
+</html>
