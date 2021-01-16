@@ -103,7 +103,7 @@ function main_draw() {
     // console.log(width);
     frame_svg.attr("width", width + margin.left + margin.right);
     // Parse the Data
-    d3.csv("dailyObs2019_bySpecies_Top25_withWeek.csv", function(data) {
+    d3.csv("dailyObs2020_bySpecies_Top25_withWeek_sortFreq.csv", function(data) {
 
     // Area generator
     var area = d3.area()
