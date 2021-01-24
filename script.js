@@ -1,4 +1,12 @@
 
+// #D9E5D0 Lightest green, text background
+// #C5D8B6 Main light green, viz background
+// #63845A Medium green, text and viz fill
+// #34422C Dark green, highlight text / viz select
+
+
+
+
 // —————————— VALUE VARIABLES
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 30, bottom: 0, left: 10},
@@ -34,14 +42,14 @@ frame_svg.append("text")
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([-300, 300])
+    .domain([-600, 600])
     .range([ height, 0 ]);
 
  var svg_legend = d3.select("#my_legend")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-    .attr("fill","#ccc")
+    .attr("fill","none")
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
@@ -58,41 +66,53 @@ frame_svg.append("text")
 
 // —————————— "HELPER" FUNCTIONS
 function mouseover(d,i) {
-  Tooltip.style("opacity", 1)
-  d3.selectAll(".myArea").style("opacity", .2)
-  d3.select(this)
-    .style("stroke", "black")
-    .style("opacity", 1)
+    ////old styles from guide
+ //  Tooltip.style("opacity", 1)
+ //  d3.selectAll(".myArea").style("opacity", .2)
+ //  d3.select(this)
+ //    .style("stroke", "#C5D8B6")
+ //    .style("opacity", 1)
+ //
+ //  d3.selectAll(".myLabel").style("opacity", .2)
+ // d3.select("#speciesLabel" + i)
+ //      .style("opacity", 1)
+//// new designed styles
+ d3.select(this)
+   .style("fill", "#34422C")
 
-  d3.selectAll(".myLabel").style("opacity", .2)
- d3.select("#speciesLabel" + i)
-      .style("opacity", 1)
-
+d3.select("#speciesLabel" + i)
+     .style("fill", "#34422C")
 }
 function mouseleave(d) {
   Tooltip.style("opacity", 0)
-  d3.selectAll(".myArea").style("opacity", 1).style("stroke", "none")
-  d3.selectAll(".myLabel").style("opacity", 1)
+  // d3.selectAll(".myArea").style("opacity", 1).style("stroke", "none")
+  // d3.selectAll(".myLabel").style("opacity", 1) //Default styles from guide
+  d3.selectAll(".myArea").style("fill", "#63845A")
+  d3.selectAll(".myLabel").style("fill", "#63845A")
  }
 
  function mouseover_label(d,i) {
-     Tooltip.style("opacity", 1)
-     d3.selectAll(".myArea").style("opacity", .2)
-     d3.select("#species" + i)
-       .style("stroke", "black")
-       .style("opacity", 1)
-   d3.selectAll(".myLabel").style("opacity", .2)
+     ////default from guide
+   //   Tooltip.style("opacity", 1)
+   //   d3.selectAll(".myArea").style("opacity", .2)
+   //   d3.select("#species" + i)
+   //     .style("stroke", "#C5D8B6")
+   //     .style("opacity", 1)
+   // d3.selectAll(".myLabel").style("opacity", .2)
+   // d3.select(this)
+   //     .style("opacity", 1)
+   ////new designed styles
    d3.select(this)
-       .style("opacity", 1)
+        .style("fill", "#34422C")
+    d3.select("#species" + i)
+         .style("fill", "#34422C")
  }
 
  function mouseleave_label(d,i) {
-     Tooltip.style("opacity", 0)
      d3.selectAll(".myArea")
-          .style("opacity", 1)
-          .style("stroke", "none")
+          .style("fill", "#63845A")
       d3.selectAll(".myLabel")
-           .style("opacity", 1)
+          .style("fill", "#63845A")
   }
 
 // MAIN DATA BINDING, AND DRAWING WITH DATA
@@ -153,7 +173,9 @@ function main_draw() {
         .append("path")
           .attr("class", "myArea")
           .attr("id", function(d,i) { return "species" + i })
-          .style("fill", "#aaa" )
+          .style("fill", "#63845A" )
+          .style("stroke","#C5D8B6")
+          .attr('stroke-width', 0.3)
           .attr("d", area)
           .on("mouseover", mouseover)
           .on("mousemove", mousemove)
