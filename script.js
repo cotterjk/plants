@@ -11,7 +11,7 @@
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 30, bottom: 0, left: 10},
     width = d3.select('#my_dataviz').node().offsetWidth - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    height = 490 - margin.top - margin.bottom;
 
 var tickLabels = ['J','F','M','A','M','J','J','A','S','O','N','D'];
 
@@ -42,7 +42,7 @@ frame_svg.append("text")
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([-600, 600])
+    .domain([-900, 900])
     .range([ height, 0 ]);
 
  var svg_legend = d3.select("#my_legend")
@@ -175,7 +175,7 @@ function main_draw() {
           .attr("id", function(d,i) { return "species" + i })
           .style("fill", "#63845A" )
           .style("stroke","#C5D8B6")
-          .attr('stroke-width', 0.3)
+          .attr('stroke-width', 0.2)
           .attr("d", area)
           .on("mouseover", mouseover)
           .on("mousemove", mousemove)
@@ -188,7 +188,7 @@ function main_draw() {
         .enter()
         .append("text")
           .attr("x", 0)
-          .attr("y", function(d,i){ return 10 + i*(15) + (5)}) // 100 is where the first dot appears. 25 is the distance between dots
+          .attr("y", function(d,i){ return 10 + i*(18) + (5)}) // 100 is where the first label appears. 18 is the distance between labels
           .style("fill", "darkgreen")
           .text(function(d){ return d})
           .attr("text-anchor", "left")

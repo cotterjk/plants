@@ -7,6 +7,10 @@ h1, p, text {
     font-family: "Optima";
 }
 
+text:hover {
+    cursor: default;
+}
+
 #my_dataviz, #my_legend {
     background: #C5D8B6;
 }
