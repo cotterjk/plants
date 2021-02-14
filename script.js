@@ -33,13 +33,6 @@ d3.select("#my_dataviz")
 
 frame_svg = d3.select("#my_dataviz").selectAll("svg");
 
-  // Add X axis label:
-frame_svg.append("text")
-  .attr("text-anchor", "end")
-  .attr("x", width)
-  .attr("y", height-30 )
-  .text("Week");
-
   // Add Y axis
   var y = d3.scaleLinear()
     .domain([-900, 900])
@@ -158,8 +151,8 @@ function main_draw() {
         .domain(d3.extent(data, function(d,i) { return i; }))
         .range([ 0, width ]);
       frame_svg.append("g")
-        .attr("transform", "translate(0," + height*0.8 + ")")
-        .call(d3.axisBottom(x).tickValues(tickDistance).tickSize(-height*.7).tickFormat(function(d,i){ return tickLabels[i] }))
+        .attr("transform", "translate(0," + height*0.9 + ")")
+        .call(d3.axisBottom(x).tickValues(tickDistance).tickSize(-height*.8).tickFormat(function(d,i){ return tickLabels[i] }))
         .select(".domain").remove()
       // Customization
       frame_svg.selectAll(".tick line").attr("stroke", "#b8b8b8")

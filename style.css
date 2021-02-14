@@ -39,6 +39,6 @@ text:hover {
 #plant_thumbnail {
     position: absolute;
     border-radius: 50%;
-    left:1em;
+    right:1em;
     top:1em;
 }
