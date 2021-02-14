@@ -82,6 +82,10 @@ function mouseover(d,i) {
 
 d3.select("#speciesLabel" + i)
      .style("fill", "#34422C")
+
+console.log ("i: " + i);
+document.getElementById('plant_thumbnail').src = ("assets/images/plant" + i + ".jpg");
+console.log("assets/images/plant" + i + ".jpg");
 }
 function mouseleave(d) {
   Tooltip.style("opacity", 0)
@@ -106,6 +110,9 @@ function mouseleave(d) {
         .style("fill", "#34422C")
     d3.select("#species" + i)
          .style("fill", "#34422C")
+ console.log ("i: " + i);
+ document.getElementById('plant_thumbnail').src = ("assets/images/plant" + i + ".jpg");
+ console.log("assets/images/plant" + i + ".jpg");
  }
 
  function mouseleave_label(d,i) {
