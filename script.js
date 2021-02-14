@@ -9,18 +9,13 @@
 
 // —————————— VALUE VARIABLES
 // set the dimensions and margins of the graph
-var margin = {top: 20, right: 30, bottom: 0, left: 10},
-    width = d3.select('#my_dataviz').node().offsetWidth - margin.left - margin.right,
+var margin = {top: 20, right: 50, bottom: 0, left: 10},
+    width = d3.select('#my_dataviz').node().offsetWidth - margin.left - margin.right;
     height = 390 - margin.top - margin.bottom;
 
 var tickLabels = ['J','F','M','A','M','J','J','A','S','O','N','D'];
 
 // —————————— ON-PAGE VARIABLES
-
-// Add Y axis
-var y = d3.scaleLinear()
-  .domain([-300, 300])
-  .range([ height, 0 ]);
 
 d3.select("#my_dataviz")
   .append("svg")
@@ -31,11 +26,10 @@ d3.select("#my_dataviz")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
 
-frame_svg = d3.select("#my_dataviz").selectAll("svg");
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([-900, 900])
+    .domain([-700, 700])
     .range([ height, 0 ]);
 
  var svg_legend = d3.select("#my_legend")
@@ -46,6 +40,9 @@ frame_svg = d3.select("#my_dataviz").selectAll("svg");
   .append("g")
     .attr("transform",
           "translate(" + margin.left + "," + margin.top + ")");
+
+          frame_svg = d3.select("#my_dataviz").selectAll("svg");
+
 
   // create a tooltip
   var Tooltip = frame_svg
@@ -149,7 +146,7 @@ function main_draw() {
       // Add X axis
       var x = d3.scaleLinear()
         .domain(d3.extent(data, function(d,i) { return i; }))
-        .range([ 0, width ]);
+        .range([ 0, d3.select('#my_dataviz').node().offsetWidth ]);
       frame_svg.append("g")
         .attr("transform", "translate(0," + height*0.9 + ")")
         .call(d3.axisBottom(x).tickValues(tickDistance).tickSize(-height*.8).tickFormat(function(d,i){ return tickLabels[i] }))
@@ -187,8 +184,8 @@ function main_draw() {
         .data(keys)
         .enter()
         .append("text")
-          .attr("x", 0)
-          .attr("y", function(d,i){ return 10 + i*(18) + (5)}) // 100 is where the first label appears. 18 is the distance between labels
+          .attr("x", -10)
+          .attr("y", function(d,i){ return i*(18) + (5)}) // 100 is where the first label appears. 18 is the distance between labels
           .style("fill", "darkgreen")
           .text(function(d){ return d})
           .attr("text-anchor", "left")
