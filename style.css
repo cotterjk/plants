@@ -7,6 +7,10 @@ h1, p, text {
     font-family: "Optima";
 }
 
+body {
+    background: #D9E5D0;
+}
+
 text:hover {
     cursor: default;
 }
@@ -18,8 +22,14 @@ text:hover {
 #my_dataviz {
 }
 
+#dataviz-container {
+    background: #C5D8B6;
+}
+
 #writeup-container {
+    padding: 40px 0px;
     background: #D9E5D0;
+
 }
 
 #plant_thumbnail {
