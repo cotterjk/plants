@@ -21,3 +21,14 @@ text:hover {
 #writeup-container {
     background: #D9E5D0;
 }
+
+#plant_thumbnail {
+    position: absolute;
+    border-radius: 50%;
+    left:1em;
+    top:1em;
+}
+.row{
+    margin: 0;
+    position: relative;
+}
