@@ -11,7 +11,7 @@
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 30, bottom: 0, left: 10},
     width = d3.select('#my_dataviz').node().offsetWidth - margin.left - margin.right,
-    height = 490 - margin.top - margin.bottom;
+    height = 390 - margin.top - margin.bottom;
 
 var tickLabels = ['J','F','M','A','M','J','J','A','S','O','N','D'];
 
@@ -48,7 +48,7 @@ frame_svg.append("text")
  var svg_legend = d3.select("#my_legend")
   .append("svg")
     .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("height", 470 + margin.top + margin.bottom)
     .attr("fill","none")
   .append("g")
     .attr("transform",

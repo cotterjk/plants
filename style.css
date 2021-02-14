@@ -15,6 +15,11 @@ text:hover {
     cursor: default;
 }
 
+.row{
+    margin: 0;
+    position: relative;
+}
+
 #my_dataviz, #my_legend {
     background: #C5D8B6;
 }
@@ -29,7 +34,6 @@ text:hover {
 #writeup-container {
     padding: 40px 0px;
     background: #D9E5D0;
-
 }
 
 #plant_thumbnail {
@@ -37,8 +41,4 @@ text:hover {
     border-radius: 50%;
     left:1em;
     top:1em;
-}
-.row{
-    margin: 0;
-    position: relative;
 }
