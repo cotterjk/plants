@@ -3,8 +3,17 @@
 // #63845A Medium green, text and viz fill
 // #34422C Dark green, highlight text / viz select */
 
-h1, p, text {
+h1, h2, p, text {
     font-family: "Optima";
+}
+
+h1 {
+    font-size: 2.2rem;
+    line-height: 2.2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
 }
 
 body {
