@@ -51,4 +51,5 @@ text:hover {
     border-radius: 50%;
     right:1em;
     top:1em;
+    visibility: hidden;
 }

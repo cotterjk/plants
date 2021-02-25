@@ -76,6 +76,7 @@ d3.select("#speciesLabel" + i)
 console.log ("i: " + i);
 document.getElementById('plant_thumbnail').src = ("assets/images/plant" + i + ".jpg");
 console.log("assets/images/plant" + i + ".jpg");
+document.getElementById('plant_thumbnail').style.visibility = "visible";
 }
 function mouseleave(d) {
   Tooltip.style("opacity", 0)
@@ -83,6 +84,7 @@ function mouseleave(d) {
   // d3.selectAll(".myLabel").style("opacity", 1) //Default styles from guide
   d3.selectAll(".myArea").style("fill", "#63845A")
   d3.selectAll(".myLabel").style("fill", "#63845A")
+  document.getElementById('plant_thumbnail').style.visibility = "hidden";
  }
 
  function mouseover_label(d,i) {
@@ -103,6 +105,7 @@ function mouseleave(d) {
  console.log ("i: " + i);
  document.getElementById('plant_thumbnail').src = ("assets/images/plant" + i + ".jpg");
  console.log("assets/images/plant" + i + ".jpg");
+ document.getElementById('plant_thumbnail').style.visibility = "visible";
  }
 
  function mouseleave_label(d,i) {
@@ -110,6 +113,7 @@ function mouseleave(d) {
           .style("fill", "#63845A")
       d3.selectAll(".myLabel")
           .style("fill", "#63845A")
+  document.getElementById('plant_thumbnail').style.visibility = "hidden";
   }
 
 // MAIN DATA BINDING, AND DRAWING WITH DATA
