@@ -8,7 +8,7 @@ h1, p, text {
 }
 
 body {
-    background: #D9E5D0;
+    background: #C5D8B6;
 }
 
 text:hover {
@@ -17,7 +17,7 @@ text:hover {
 
 .row{
     margin: 0;
-    position: relative;
+    /* position: relative; */
 }
 
 #my_dataviz, #my_legend {
@@ -27,11 +27,13 @@ text:hover {
 #my_legend {
     border-left: 1px solid #63845A;
     border-bottom: 1px solid #63845A;
+    padding-top:30px;
 }
 
 #dataviz-container {
     background: #C5D8B6;
-    border-bottom: 1px solid #63845A
+    border-bottom: 1px solid #63845A;
+    padding-top:30px;
 }
 
 #writeup-container {
@@ -41,6 +43,7 @@ text:hover {
 #writeup-container > * {
     padding-top: 30px;
     border-left: 1px solid #63845A;
+    border-bottom: 1px solid #63845A;
 }
 
 #plant_thumbnail {
