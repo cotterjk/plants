@@ -56,6 +56,7 @@ text:hover {
 
 #writeup{
     padding-top: 30px;
+    padding-bottom: 100px;
 }
 
 #plant_thumbnail {
@@ -74,4 +75,18 @@ a:hover {
     color: #63845A;
     opacity: 0.5;
     text-decoration: none;
+}
+
+#logo-container svg{
+    stroke:#63845A;
+    transition: ease .3s;
+    padding-top: 30px;
+    width: 4rem;
+    display: block;
+    margin: auto;
+}
+
+#logo-container svg:hover{
+    opacity: 0.5;
+    transition: ease .3s;
 }
