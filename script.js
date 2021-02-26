@@ -146,11 +146,11 @@ function main_draw() {
       }
 
       //Array of evenly spaced 1/12s * 50
-      var tickDistance = [...Array(13).keys()].map(x => x * (50/12));
+      var tickDistance = [...Array(13).keys()].map(x => x * (49/11));
       // Add X axis
       var x = d3.scaleLinear()
         .domain(d3.extent(data, function(d,i) { return i; }))
-        .range([ 0, d3.select('#my_dataviz').node().offsetWidth ]);
+        .range([ 0, d3.select('#my_dataviz').node().offsetWidth]);
       frame_svg.append("g")
         .attr("transform", "translate(0," + height*0.9 + ")")
         .call(d3.axisBottom(x).tickValues(tickDistance).tickSize(-height*.8).tickFormat(function(d,i){ return tickLabels[i] }))
