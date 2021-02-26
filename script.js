@@ -29,7 +29,7 @@ d3.select("#my_dataviz")
 
   // Add Y axis
   var y = d3.scaleLinear()
-    .domain([-700, 700])
+    .domain([700, -700])
     .range([ height, 0 ]);
 
  var svg_legend = d3.select("#my_legend")
