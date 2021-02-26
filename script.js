@@ -34,7 +34,7 @@ d3.select("#my_dataviz")
 
  var svg_legend = d3.select("#my_legend")
   .append("svg")
-    .attr("width", width + margin.left + margin.right)
+    // .attr("width", width + margin.left + margin.right)
     .attr("height", 470 + margin.top + margin.bottom)
     .attr("fill","none")
   .append("g")
@@ -190,7 +190,7 @@ function main_draw() {
         .append("text")
           .attr("x", -10)
           .attr("y", function(d,i){ return i*(18) + (5)}) // 100 is where the first label appears. 18 is the distance between labels
-          .style("fill", "darkgreen")
+          .style("fill", "#63845A")
           .text(function(d){ return d})
           .attr("text-anchor", "left")
           .attr("class","myLabel")
