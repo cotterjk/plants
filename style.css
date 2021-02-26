@@ -1,6 +1,6 @@
 /* // #D9E5D0 Lightest green, text background
 // #C5D8B6 Main light green, viz background
-// #63845A Medium green, text and viz fill
+// #63845A Medium green, viz fill, link color
 // #34422C Dark green, highlight text / viz select */
 
 h1, h2, p, text {
@@ -64,4 +64,14 @@ text:hover {
     right:1em;
     top:1em;
     visibility: hidden;
+}
+
+a {
+    color: #63845A;
+}
+
+a:hover {
+    color: #63845A;
+    opacity: 0.5;
+    text-decoration: none;
 }
