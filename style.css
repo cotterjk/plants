@@ -3,7 +3,7 @@
 // #63845A Medium green, viz fill, link color
 // #34422C Dark green, highlight text / viz select */
 
-h1, h2, p, text {
+h1, h2, p, ul, text {
     font-family: "Optima";
 }
 
@@ -22,6 +22,15 @@ body {
 
 text:hover {
     cursor: default;
+}
+
+ul{
+    list-style: none;
+    padding-left: 0;
+}
+li {
+    margin-top:0.8rem;
+    font-style: italic;
 }
 
 .row{
@@ -54,7 +63,7 @@ text:hover {
     border-bottom: 1px solid #63845A;
 }
 
-#writeup{
+#writeup, #resources{
     padding-top: 30px;
     padding-bottom: 100px;
 }
