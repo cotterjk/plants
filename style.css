@@ -27,6 +27,7 @@ text:hover {
 ul{
     list-style: none;
     padding-left: 0;
+    font-size: 0.8rem;
 }
 li {
     margin-top:0.8rem;
