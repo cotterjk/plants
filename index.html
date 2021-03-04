@@ -23,11 +23,17 @@
         <div class="row" id="writeup-container">
         <div  class="col-sm-3"></div>
         <div  class="col-sm-6" id="writeup">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>I was lucky to live near nature in 2020. In the spring, I began walking nearly the same loop nearly every day. I guess I used to think this transitional season sprung slowly and monolithically, but every day I got to see which particular plant occupies each frame of that transition. I learned how everything blooms uniquely and in a round.</p>
+
+            <p>I downloaded <a href="https://www.inaturalist.org/pages/seek_app">a plant identification app called Seek by iNaturalist</a> and found names for flowers as they popped. When the AI can identify a species of a plant, a few quick facts pop up, accompanied by a little line chart of seasonality. I started to think how EVERY plant’s seasonality sandwiched together would create a comprehensive silhouette of everything that blooms, all year.</p>
+
+            <p>Luckily, Seek also keeps a highly accessible <a href="https://www.inaturalist.org/observations">dataset</a> of all user observations. From the <a href="https://www.inaturalist.org/observations/export">iNaturalist data export tool</a>, I downloaded every plant observation made in Michigan in 2020, almost 220,000. The app was able to identify the plant’s species in around 100,000 of those observations. In a year that I was paying more attention to the growth directly around me, I decided to use these observation counts as a proxy for the plant’s true seasonality. (I’m guessing this is what the in-app seasonality chart uses too.)</p>
+
+            <p>Plotting every plant observation and grouping by species would create hundreds of slivers with one or two disparate observations, so I filtered out everything except the top 25 most-observed plants, and binned by week.</p>
+
+            <p>This alone was interesting to me—charting Michiganders’ observations depicts some intersection of which plants are most prolific and which are most intriguing. But the time dimension shows me how some plants finish their full blooms before others even start, which plants draw attention year round and which blooms only burn brightly.</p>
+
+            <p>As springtime comes again, the way things are looking, I’ll keep walking and watching.</p>
             <div id="logo-container">
                 <a
                 href='https://www.cotterkoopman.com/' target='_blank'>
@@ -60,11 +66,9 @@
         <div  class="col-sm-3" id="resources">
             <h2>Resources</h2>
             <ul>
-                <li>Lorem ipsum dolor sit amet</li>
-                <li>consectetur adipiscing elit</li>
-                <li>sed do eiusmod tempor incididunt</li>
-                <li>ut labore et dolore magna aliqua</li>
-                <li>ut enim ad minim veniam</li>
+                <li><a href="https://youtu.be/L9ThW0OQHoY">This live-code</a> by The Pudding got me comfortable using Sequel Pro.</li>
+                <li><a href="https://stackoverflow.com/questions/14834290/mysql-query-to-dynamically-convert-rows-to-columns">This Stack Overflow question</a> introduced me to prepared statements, sub-queries, and group_concat, for transforming my Top 25 plants to rows.</li>
+                <li>I followed <a href="https://www.d3-graph-gallery.com/streamgraph.html">this documentation</a> for making a “streamchart” in d3.</li>
             </ul>
         </div>
 
