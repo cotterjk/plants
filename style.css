@@ -72,9 +72,19 @@ li {
 #plant_thumbnail {
     position: absolute;
     border-radius: 50%;
-    right:1em;
-    top:1em;
+    right:3em;
+    top:3em;
     visibility: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+    #plant_thumbnail {
+        right:1em;
+        top:8em;
+        width:7em;
+        height:7em;
+    }
+
 }
 
 a {
