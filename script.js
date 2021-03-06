@@ -161,7 +161,7 @@ function main_draw() {
         .call(d3.axisBottom(x).tickValues(tickDistance).tickSize(-height*.8).tickFormat(function(d,i){ return tickLabels[i] }))
         .select(".domain").remove()
       // Customization
-      frame_svg.selectAll(".tick line").attr("stroke", "#b8b8b8")
+      frame_svg.selectAll(".tick line").attr("stroke", "#D9E5D0").attr('stroke-width', 1)
       frame_svg.selectAll(".tick>text").attr("transform", "translate(" + width/24 + ")")
 
 
