@@ -9,6 +9,10 @@
 
 // —————————— VALUE VARIABLES
 // set the dimensions and margins of the graph
+if (isMobile) {
+    console.log("Is Mobile True")
+}
+
 var margin = {top: 20, right: 50, bottom: 0, left: 10},
     width = d3.select('#my_dataviz').node().offsetWidth - margin.left - margin.right;
     height = 390 - margin.top - margin.bottom;
@@ -213,6 +217,7 @@ function clear_draw() {
 // —————————— END DATA BINDING DRAWING FUNCTION
 
 var timeout;
+var isMobile = !window.matchMedia('only screen and (min-width: 768px)').matches
 window.addEventListener('resize', function (event) {
 
 	// console.log('no debounce');
@@ -225,8 +230,12 @@ window.addEventListener('resize', function (event) {
     setTimeout(function() {
 	// Setup the new requestAnimationFrame()
 	timeout = window.requestAnimationFrame(function () {
-
-		main_draw();
+        if (!isMobile){
+            isMobile = !window.matchMedia('only screen and (min-width: 768px)').matches;
+            main_draw();
+        } else {
+            isMobile = !window.matchMedia('only screen and (min-width: 768px)').matches;
+        }
 		// console.log('debounced');
 
 	   });
