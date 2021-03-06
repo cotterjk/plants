@@ -52,16 +52,17 @@ d3.select("#my_dataviz")
   var Tooltip = frame_svg
     .append("text")
     .attr("x", 0)
-    .attr("y", 0)
+    .attr("y", 22)
     .style("opacity", 0)
-    .style("font-size", 17)
+    .style("font-size", "1.5rem")
+    .style("fill", "#63845A")
 
 
 
 // —————————— "HELPER" FUNCTIONS
 function mouseover(d,i) {
     ////old styles from guide
- //  Tooltip.style("opacity", 1)
+  Tooltip.style("opacity", 1)
  //  d3.selectAll(".myArea").style("opacity", .2)
  //  d3.select(this)
  //    .style("stroke", "#C5D8B6")
@@ -93,7 +94,7 @@ function mouseleave(d) {
 
  function mouseover_label(d,i) {
      ////default from guide
-   //   Tooltip.style("opacity", 1)
+     Tooltip.style("opacity", 1)
    //   d3.selectAll(".myArea").style("opacity", .2)
    //   d3.select("#species" + i)
    //     .style("stroke", "#C5D8B6")
