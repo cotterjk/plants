@@ -9,9 +9,6 @@
 
 // —————————— VALUE VARIABLES
 // set the dimensions and margins of the graph
-if (isMobile) {
-    console.log("Is Mobile True")
-}
 
 var margin = {top: 20, right: 50, bottom: 0, left: 10},
     width = d3.select('#my_dataviz').node().offsetWidth - margin.left - margin.right;
@@ -78,9 +75,9 @@ function mouseover(d,i) {
 d3.select("#speciesLabel" + i)
      .style("fill", "#34422C")
 
-console.log ("i: " + i);
+// // console.log ("i: " + i);
 document.getElementById('plant_thumbnail').src = ("assets/images/plant" + i + ".jpg");
-console.log("assets/images/plant" + i + ".jpg");
+// // console.log("assets/images/plant" + i + ".jpg");
 document.getElementById('plant_thumbnail').style.visibility = "visible";
 }
 function mouseleave(d) {
@@ -107,9 +104,9 @@ function mouseleave(d) {
         .style("fill", "#34422C")
     d3.select("#species" + i)
          .style("fill", "#34422C")
- console.log ("i: " + i);
+ // // console.log ("i: " + i);
  document.getElementById('plant_thumbnail').src = ("assets/images/plant" + i + ".jpg");
- console.log("assets/images/plant" + i + ".jpg");
+ // // console.log("assets/images/plant" + i + ".jpg");
  document.getElementById('plant_thumbnail').style.visibility = "visible";
  }
 
@@ -126,7 +123,7 @@ function main_draw() {
     clear_draw();
     frame_svg.selectAll("mylayers").remove();
     width = d3.select('#my_dataviz').node().offsetWidth - margin.left - margin.right;
-    // console.log(width);
+    // // // console.log(width);
     frame_svg.attr("width", width + margin.left + margin.right);
     // Parse the Data
     d3.csv("dailyObs2020_bySpecies_Top25_withWeek_sortFreq.csv", function(data) {
@@ -212,7 +209,7 @@ function clear_draw() {
     frame_svg.selectAll("g").remove(); //removes ticks
     svg_legend.selectAll("text").remove(); //removes legend
 
-    // // console.log("Removing")
+    // // // // console.log("Removing")
 }
 
 // —————————— END DATA BINDING DRAWING FUNCTION
@@ -221,7 +218,7 @@ var timeout;
 var isMobile = !window.matchMedia('only screen and (min-width: 768px)').matches
 window.addEventListener('resize', function (event) {
 
-	// console.log('no debounce');
+	// // // console.log('no debounce');
 
 	// If there's a timer, cancel it
 	if (timeout) {
@@ -237,7 +234,7 @@ window.addEventListener('resize', function (event) {
         } else {
             isMobile = !window.matchMedia('only screen and (min-width: 768px)').matches;
         }
-		// console.log('debounced');
+		// // // console.log('debounced');
 
 	   });
    }, 100)
